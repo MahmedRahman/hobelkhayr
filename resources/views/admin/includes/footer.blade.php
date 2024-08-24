@@ -1,3 +1,8 @@
+<div class="footer">
+    <p>&copy; 2018 Glance Design Dashboard. All Rights Reserved | Design by <a href="https://w3layouts.com/"
+            target="_blank">w3layouts</a></p>
+</div>
+
 <!-- side nav js -->
 <script src='{{ URL::asset('js/SidebarNav.min.js') }}' type='text/javascript'></script>
 
@@ -39,3 +44,7 @@ function disableOther(button) {
 
 <!-- Bootstrap Core JavaScript -->
 <script src="{{ URL::asset('js/bootstrap.js') }}"></script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

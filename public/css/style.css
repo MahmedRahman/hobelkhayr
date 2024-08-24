@@ -38,6 +38,8 @@ body a:hover{
 }
 .main-content {
     position: relative;
+    height: 900px;
+    background: #F1F1F1;
 }
 .sidebar-left .navbar-brand {
     height: 61px;
