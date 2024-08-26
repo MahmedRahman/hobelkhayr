@@ -964,7 +964,7 @@ ul.dropdown-menu.drp-mnu li {
 }
 /*--charts--*/
 .charts,.row {
-    margin: 0 0 1em 0;
+    /* margin: 0 0 1em 0; */
 }
 .charts-grids {
     background-color: #fff;
@@ -1196,8 +1196,8 @@ ul.info li {
 /*-- media --*/
 h2.title1,h3.title1 {
     font-size: 1.7em;
-    color: #629aa9;
-    margin-bottom: 0.8em;
+    /* color: #629aa9; */
+    /* margin-bottom: 0.8em; */
 }
 .bs-example5{
    background:#fff;
@@ -2995,8 +2995,8 @@ h3.w3_inner_tittle.two {
     border-color: #EEE !important;
 }
 .bg-light {
-    background-color: #fafafa;
-    color: #666;
+    /* background-color: #fafafa; */
+    /* color: #666; */
 }
 .bg-light.light {
     background-color: #FEFEFE;
@@ -3339,7 +3339,7 @@ ul.bt-list li a {
     background-color: #e84c3d;
 }
 .col-6 {
-    background-color: #b147cb;
+    /* background-color: #b147cb; */
 }
 .col-7 {
     background-color: #1bbc9b;

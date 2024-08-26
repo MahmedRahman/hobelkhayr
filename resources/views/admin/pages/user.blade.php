@@ -13,19 +13,19 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 
         <div id="page-wrapper">
-            <div class="main-page">
+            <div class="main-page container-fluid">
 
-                <x-table-title title="User Table" bntText="Save" dataTargetModel="#addUsersModal">
+                <x-table-title title="User Table" bntText="ADD User" dataTargetModel="#addUsersModal">
                 </x-table-title>
 
-                <div class="page-wrapper">
-                    <div class="container">
-                        @if($users->isEmpty())
-                        @include('admin.pages.user.empty')
-                        @else
-                        @include('admin.pages.user.table')
-                        @endif
-                    </div>
+                <div class="col-md-12 bg-white" style="padding-top: 20px;">
+
+                    @if($users->isEmpty())
+                    <x-alert-info msg="No User Found. Please add a new User."></x-alert-info>
+                    @else
+                    <x-data-table :items="$users" :columns="$columns" :deleteAction="'deleteItem'" />
+                    @endif
+
                 </div>
             </div>
         </div>

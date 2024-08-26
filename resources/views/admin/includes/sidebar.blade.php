@@ -1,5 +1,5 @@
 <!--left-fixed -navigation-->
-<div class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+<div class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-lef " id="cbp-spmenu-s1">
 
     <aside class="sidebar-left">
         <nav class="navbar navbar-inverse">

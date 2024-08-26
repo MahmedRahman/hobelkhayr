@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\FirebaseUserController;
+use App\Http\Controllers\NotifactionController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -32,9 +33,10 @@ Route::get('/admin', function () {
 Route::get('/user', [UserController::class, 'index']);
 Route::get('/user/create', [UserController::class, 'create'])->name('users.create');
 
-Route::get('/notifaction', function () {
-    return view('admin.pages.notifaction');
-});
+Route::get('/notifaction', [NotifactionController::class, 'index'])->name('Notifactions.index');
+
+Route::post('/notifaction/store', [NotifactionController::class, 'store'])->name('Notifactions.store');
+
 
 
 

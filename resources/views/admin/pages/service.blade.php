@@ -1,20 +1,20 @@
 @include('admin.includes.head')
 
 <body class="cbp-spmenu-push">
+
     <div class="main-content">
         @include('admin.includes.sidebar')
 
-
-        <div id=" row">
-            <div class="row">
+        <div id="page-wrapper">
+            <div class="main-page container-fluid">
 
                 <x-table-title title="Services List" bntText="Add Service" dataTargetModel="#addServiceModal">
                 </x-table-title>
 
 
-                <div class="container bg-white">
+                <div class="col-md-12 bg-white" style="padding-top: 20px;">
                     @if($services->isEmpty())
-                    @include('admin.pages.service.empty')
+                    <x-alert-info msg="No services found. Please add a new service."></x-alert-info>
                     @else
                     @include('admin.pages.service.table')
                     @endif
