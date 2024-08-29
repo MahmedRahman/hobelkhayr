@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Traits\ToStringFormat;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
@@ -54,6 +55,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+
+
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
@@ -67,7 +71,6 @@ class UserController extends Controller
                 return response()->json($validator->errors(), 400);
             }
             return redirect()->route('users.index')->with('fauiler', $validator->errors());
-
         }
 
         $user = User::create([
@@ -77,6 +80,8 @@ class UserController extends Controller
             'password' => bcrypt($request->input('password')),
             'role' => $request->input('role', 'user') // Default to 'user' if not provided
         ]);
+
+
 
         if ($request->wantsJson()) {
             return response()->json(['message' => 'User created successfully!', 'user' => $user]);

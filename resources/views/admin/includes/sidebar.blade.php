@@ -12,7 +12,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <h1><a class="navbar-brand" href="index.html"><span class="fa fa-area-chart"></span> Glance<span
-                            class="dashboard_text">Design dashboard</span></a></h1>
+                            class="dashboard_text">Hello</span></a></h1>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="sidebar-menu">
