@@ -10,11 +10,14 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('notifactions', function (Blueprint $table) {
+        Schema::create('group_chats', function (Blueprint $table) {
             $table->id();
-            $table->string('title'); // Name of the service
-            $table->string('body'); // Path or URL to the service image
-            $table->string('user_id'); // Path or URL to the service image
+            $table->string('name'); // Name of the service
+
+            $table->string('description'); // Name of the service
+
+            $table->string('create_by'); // Name of the service
+            $table->string('type_id'); // Name of the service
 
             $table->timestamps();
         });
@@ -25,6 +28,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('notifaction');
+        Schema::dropIfExists('groupchats');
     }
 };

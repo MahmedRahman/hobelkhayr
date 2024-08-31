@@ -31,11 +31,7 @@
                     </li>
 
 
-                    <li class="treeview">
-                        <a href="{{ url('/services') }}">
-                            <i class="fa fa-dashboard"></i> <span>Serives</span>
-                        </a>
-                    </li>
+
 
 
                     <li class="treeview">
@@ -43,6 +39,20 @@
                             <i class="fa fa-dashboard"></i> <span>Notifaction</span>
                         </a>
                     </li>
+
+
+                    <li class="treeview">
+                        <a href="{{ url('/services') }}">
+                            <i class="fa fa-dashboard"></i> <span>Groups Type</span>
+                        </a>
+                    </li>
+                    <li class="treeview">
+                        <a href="{{ url('/groups') }}">
+                            <i class="fa fa-dashboard"></i> <span>Groups</span>
+                        </a>
+                    </li>
+
+
 
 
                     <li class="treeview">

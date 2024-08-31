@@ -25,10 +25,25 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
+            $request > session()->regenerate();
+            if ($request->wantsJson()) {
+                // return response()->json(['message' => 'Login Successful']);
+                $user = Auth::user();
+                // Assuming you are using Sanctum for API token management
+                $token = $user->createToken('authToken')->plainTextToken;
+
+                return response()->json([
+                    'message' => 'Login successful',
+                    'token' => $token,
+                    'user' => $user
+                ]);
+
+            }
             return redirect()->intended('admin')->with('swal-success', 'Login Successful!');
         }
-
+        if ($request->wantsJson()) {
+            return response()->json(['message' => 'The provided credentials do not match our records.']);
+        }
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.'
         ])->with('swal-error', 'The provided credentials do not match our records.'); // Use this line

@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\FirebaseUserController;
+use App\Http\Controllers\GroupChatController;
 use App\Http\Controllers\NotifactionController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
@@ -37,6 +38,7 @@ Route::get('/notifaction', [NotifactionController::class, 'index'])->name('Notif
 
 Route::post('/notifaction/store', [NotifactionController::class, 'store'])->name('Notifactions.store');
 
+Route::get('/groups', [GroupChatController::class, 'index'])->name('Groups.index');
 
 
 

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Auth;
 use Exception;
 use Illuminate\Http\Request;
 use App\Models\Notifaction;
@@ -43,10 +44,20 @@ class NotifactionController extends Controller
         ]);
 
         try {
-            // Create the service
+
+
+            $userid = Auth::id();
+            // if (Request::has('user_id')) {
+            //     $userid = $request->input('user_id');
+            // }
+
+            // Create the Notification
+
+
             $Notification = Notifaction::create([
                 'title' => $request->input('title'),
                 'body' => $request->input('body'),
+                'user_id' => $userid,
             ]);
 
             if ($request->wantsJson()) {
@@ -57,7 +68,7 @@ class NotifactionController extends Controller
 
         } catch (Exception $e) {
             if ($request->wantsJson()) {
-                return response()->json(['message' => 'Failed to create service!'], 500);
+                return response()->json(['message' => 'Failed to create service! ' . $e], 500);
             }
 
             return redirect()->back()->with('error', 'Failed to create service!');
