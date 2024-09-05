@@ -14,7 +14,7 @@ class GroupChatController extends Controller
     {
 
         //$Groups = GroupChat::all()->sort();
-        $Groups = GroupChat::orderBy('id')->get();
+        $Groups = GroupChat::orderBy('id', 'desc')->get();
 
 
         if ($request->wantsJson()) {
