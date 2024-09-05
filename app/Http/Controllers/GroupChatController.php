@@ -13,7 +13,7 @@ class GroupChatController extends Controller
     public function index(Request $request)
     {
 
-        $Groups = GroupChat::all();
+        $Groups = GroupChat::all()->orderBy('createdAt');
 
 
         if ($request->wantsJson()) {
