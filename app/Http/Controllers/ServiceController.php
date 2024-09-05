@@ -42,8 +42,13 @@ class ServiceController extends Controller
         try {
             // Handle the file upload
             if ($request->hasFile('service_image')) {
+
                 $image = $request->file('service_image');
                 $imagePath = $image->store('images', 'public'); // Store the image in the 'public/images' directory
+
+
+
+
             } else {
                 $imagePath = null;
             }
@@ -51,7 +56,7 @@ class ServiceController extends Controller
             // Create the service
             $service = Service::create([
                 'service_name' => $request->input('service_name'),
-                'service_image' => $imagePath,
+                'service_image' => asset(env('APP_URL')) . '/public/storage/' . $imagePath,
             ]);
 
             if ($request->wantsJson()) {

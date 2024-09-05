@@ -16,8 +16,8 @@
             <td>{{ $service->id }}</td>
             <td>
                 @if($service->service_image)
-                <img src="{{ asset(env('APP_URL') . '/storage/' . $service->service_image) }}" alt="Service Image"
-                    width="100">
+                <img src="{{ asset(env('APP_URL') . '/public/storage/' . $service->service_image) }}"
+                    alt="Service Image" width="100">
                 @else
                 No Image
                 @endif
