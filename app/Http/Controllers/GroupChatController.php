@@ -13,15 +13,30 @@ class GroupChatController extends Controller
     public function index(Request $request)
     {
 
-        //$Groups = GroupChat::all()->sort();
-        $Groups = GroupChat::orderBy('id', 'desc')->get();
-
+        //$Groups = GroupChat::orderBy('id', 'desc')->get();
+        $Groups = GroupChat::with('service')->orderBy('id', 'desc')->get();
 
         if ($request->wantsJson()) {
             // If the request expects JSON, return a JSON response
-            return response()->json($Groups);
-        }
+            // return response()->json($Groups);
 
+            $response = $Groups->map(function ($group) {
+                return [
+                    'id' => $group->id,
+
+
+                    'name' => $group->name,
+                    'description' => $group->description,
+                    'type_id' => $group->type_id,
+
+                    //'service_id' => $group->type_id,
+                    'service_image' => $group->service->service_image ?? 'No image available',
+                    // Include other necessary fields
+                ];
+            });
+            return response()->json($response);
+
+        }
 
         $columns = [
             ['name' => 'ID', 'field' => 'id'],

@@ -15,4 +15,11 @@ class GroupChat extends Model
         'type_id',
         'create_by',
     ];
+
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class, 'type_id', 'id');
+    }
+
 }
