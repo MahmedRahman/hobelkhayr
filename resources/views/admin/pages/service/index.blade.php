@@ -8,7 +8,7 @@
         <div id="page-wrapper">
             <div class="main-page container-fluid">
 
-                <x-table-title title="Services List" bntText="Add Service" dataTargetModel="#addServiceModal">
+                <x-table-title title="Group Type List" bntText="Add Service" dataTargetModel="#addServiceModal">
                 </x-table-title>
 
 

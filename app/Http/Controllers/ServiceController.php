@@ -11,16 +11,13 @@ class ServiceController extends Controller
      */
     public function index(Request $request)
     {
-        ob_end_clean();
+
 
         $services = Service::all();
 
 
-        if ($request->wantsJson()) {
-            // If the request expects JSON, return a JSON response
-            return response()->json($services);
-        }
-        return view('admin.pages.service', ['services' => $services]);
+
+        return view('admin.pages.service.index', ['services' => $services]);
 
         // return response()->json($services);
     }
@@ -74,14 +71,8 @@ class ServiceController extends Controller
         }
     }
 
-    /**
-     * Display the specified service.
-     */
-    public function show($id)
-    {
-        $service = Service::findOrFail($id);
-        return response()->json($service);
-    }
+
+
 
     /**
      * Update the specified service in storage.

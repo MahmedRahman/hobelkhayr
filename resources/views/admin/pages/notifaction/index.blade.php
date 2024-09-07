@@ -15,6 +15,23 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <div id="page-wrapper">
             <div class="main-page container-fluid">
 
+
+
+                @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+                @endif
+
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
                 <x-table-title title="Notifaction List" bntText="Add Notifaction"
                     dataTargetModel="#addNotifactionsModal">
                 </x-table-title>
@@ -24,7 +41,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     @if($Notifications->isEmpty())
                     <x-alert-info msg="No Notifaction found. Please add a new Notifaction."></x-alert-info>
                     @else
-                    <x-data-table :items="$Notifications" :columns="$columns" :deleteAction="'deleteItem'" />
+                    <x-data-table :items="$Notifications" :columns="$columns" :deleteAction="'notifaction'" />
                     @endif
                 </div>
 

@@ -13,11 +13,15 @@
             <td>{{ $item->{$column['field']} }}</td>
             @endforeach
             <td>
-                @if ($deleteAction)
-                <button type="button" class="btn btn-danger btn-sm" onclick="deleteItem({{ $item->id }})">
-                    Delete
-                </button>
-                @endif
+                <form action="/{{$deleteAction}}/destroy/{{$item["id"]}}" method="POST">
+                    @csrf
+                    <!-- CSRF token for security -->
+                    @method('DELETE')
+                    <!-- Spoofing DELETE method -->
+                    <button type="submit" class="btn btn-danger btn-sm">
+                        Delete
+                    </button>
+                </form>
             </td>
 
         </tr>

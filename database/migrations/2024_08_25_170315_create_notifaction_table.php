@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('title'); // Name of the service
             $table->string('body'); // Path or URL to the service image
+            $table->string('data'); // Path or URL to the service image
             $table->string('user_id'); // Path or URL to the service image
 
             $table->timestamps();

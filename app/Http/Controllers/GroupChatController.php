@@ -23,12 +23,9 @@ class GroupChatController extends Controller
             $response = $Groups->map(function ($group) {
                 return [
                     'id' => $group->id,
-
-
                     'name' => $group->name,
                     'description' => $group->description,
                     'type_id' => $group->type_id,
-
                     //'service_id' => $group->type_id,
                     'service_image' => $group->service->service_image ?? 'No image available',
                     // Include other necessary fields
@@ -45,7 +42,7 @@ class GroupChatController extends Controller
             // Add more columns as needed
         ];
 
-        return view('admin.pages.group', compact('Groups', 'columns'));
+        return view('admin.pages.group.index', compact('Groups', 'columns'));
 
         // return response()->json($services);
     }
@@ -86,6 +83,23 @@ class GroupChatController extends Controller
             }
 
             return redirect()->back()->with('error', 'Failed to create Group Chat!');
+        }
+    }
+
+
+
+    public function destroy($id)
+    {
+        try {
+            $Groups = GroupChat::findOrFail($id);
+            $Groups->delete();
+
+            return redirect()->back()->with('success', 'Groups deleted successfully!');
+
+        } catch (Exception $e) {
+
+
+            return redirect()->back()->with('error', 'Groups not found!');
         }
     }
 }

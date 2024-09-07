@@ -10,7 +10,7 @@
             </div>
             <div class="modal-body">
                 <!-- Add Notifactions Form -->
-                <form method="POST" action="{{ route('Notifactions.store') }}" enctype="multipart/form-data">
+                <form method="POST" action="notifaction/store" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="Notifactions_name">Title</label>
@@ -19,6 +19,12 @@
                     <div class="form-group">
                         <label for="Notifactions_name">Body</label>
                         <input type="text" class="form-control" id="body" name="body" required>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="Notifactions_name">user_id</label>
+                        <input type="text" class="form-control" id="user_id" name="user_id" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Save Notifactions</button>
                 </form>

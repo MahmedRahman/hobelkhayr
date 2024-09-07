@@ -14,7 +14,7 @@ class DataTable extends Component
     public $columns;
     public $deleteAction;
 
-    public function __construct($items, $columns, $deleteAction = null)
+    public function __construct($items, $columns, $deleteAction)
     {
         $this->items = $items;
         $this->columns = $columns;
