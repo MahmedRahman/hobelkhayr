@@ -10,7 +10,7 @@
             </div>
             <div class="modal-body">
                 <!-- Add Service Form -->
-                <form method="POST" action="{{ route('services.store') }}" enctype="multipart/form-data">
+                <form method="POST" action="services/create" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="service_name">Service Name</label>
