@@ -35,4 +35,13 @@ return [
         ],
     ],
 
+
+    // Other service configurations...
+
+    'firebase' => [
+        'credentials_file' => env('FIREBASE_CREDENTIALS'),
+    ],
+
+
+
 ];

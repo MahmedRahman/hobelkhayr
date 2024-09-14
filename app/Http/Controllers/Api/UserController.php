@@ -75,7 +75,7 @@ class UserController extends Controller
     public function otp(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'phone' => 'required|string|exists:users,phone',
+            'phone' => 'required|string',
         ]);
 
         if ($validator->fails()) {
@@ -87,7 +87,18 @@ class UserController extends Controller
         $user = User::where('phone', $request->phone)->first();
 
         if (!$user) {
-            return new ApiResponse(['error' => 'User not found', 'code' => 404]);
+
+            $user = User::create([
+                'name' => $request->input('phone'),
+                'email' => $request->input('phone') . "@gmail.com",
+                'phone' => $request->input('phone'),
+                'password' => bcrypt("1234"),
+                'role' => $request->input('role', 'user') // Default to 'user' if not provided
+            ]);
+
+
+
+            //return new ApiResponse(['error' => 'User not found', 'code' => 404]);
 
         }
 

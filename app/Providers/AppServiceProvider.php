@@ -1,5 +1,6 @@
 <?php
 namespace App\Providers;
+use DB;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\ServiceProvider;
 use View;
@@ -27,7 +28,9 @@ class AppServiceProvider extends ServiceProvider
         //
 
         JsonResource::withoutWrapping();
-
+        DB::listen(function ($query) {
+            \Log::info($query->sql, $query->bindings);
+        });
 
     }
 }

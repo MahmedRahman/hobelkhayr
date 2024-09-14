@@ -1,15 +1,16 @@
 <?php
-use App\Http\Controllers\FirebaseUserController;
+use Illuminate\Support\Facades\Route;
+use Kreait\Firebase\Factory;
+use Kreait\Firebase\Exception\FirebaseException;
 use App\Http\Controllers\GroupChatController;
 use App\Http\Controllers\NotifactionController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
-use App\Models\User;
-use GPBMetadata\Google\Api\Client;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\AuthController;
+
+
+
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -55,7 +56,7 @@ Route::middleware(['auth'])->group(function () {
 
     //Group Type
     Route::get('/services', [ServiceController::class, 'index']);
-    Route::post('/services/create', [ServiceController::class, 'create']);
+    Route::post('/services/create', [ServiceController::class, 'store']);
     Route::delete('/services/{id}', [ServiceController::class, 'destroy'])->name('services.destroy');
 
     //Group
@@ -64,4 +65,26 @@ Route::middleware(['auth'])->group(function () {
 
 
 
+});
+
+
+Route::get('/test-firebase', function () {
+    try {
+        $firebase = (new Factory)
+            ->withServiceAccount(config('services.firebase.credentials_file'))
+            ->createFirestore();  // You can also test other Firebase services, e.g., Realtime Database or Auth
+
+        // Example of accessing Firestore or another Firebase service
+        $database = $firebase->database();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Firebase connection is successful!',
+        ]);
+    } catch (FirebaseException $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Firebase connection failed: ' . $e->getMessage(),
+        ], 500);
+    }
 });
