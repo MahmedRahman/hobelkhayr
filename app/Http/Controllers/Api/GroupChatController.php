@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ApiResponse;
 use App\Models\GroupChat;
+use App\Models\GroupUser;
 use Auth;
 use Exception;
 use Illuminate\Http\Request;
@@ -119,26 +120,24 @@ class GroupChatController extends Controller
             // Return error response
             return new ApiResponse($errorResponse);
         }
-        try {
+
+        // Create the service
+        $Groupa = GroupChat::create([
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'type_id' => $request->input('type_id'),
+            'create_by' => $request->input('user_id'),
+        ]);
+
+
+        $user = GroupUser::create([
+            'group_id' => $Groupa->id,
+            'user_id' => $request->input('user_id'),
+        ]);
+
+        return new ApiResponse('Groupa created successfully!');
 
 
 
-            // Create the service
-            $Groupa = GroupChat::create([
-                'name' => $request->input('name'),
-                'description' => $request->input('description'),
-                'type_id' => $request->input('type_id'),
-                'create_by' => $request->input('user_id'),
-            ]);
-
-
-            return new ApiResponse('Groupa created successfully!');
-
-
-        } catch (Exception $e) {
-
-            return new ApiResponse(['error' => 'Failed to create Group Chat', 'code' => 500]);
-
-        }
     }
 }
