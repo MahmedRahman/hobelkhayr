@@ -140,4 +140,66 @@ class UserController extends Controller
     }
 
 
+    // Method to get user info by token
+    public function getUserInfoByToken(Request $request)
+    {
+        // This will return the authenticated user's info based on the token
+        $user = $request->user(); // Uses Sanctum token
+
+        if ($user) {
+            return response()->json([
+                'status' => 'success',
+                'user' => $user,
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'User not authenticated',
+            ], 401);
+        }
+    }
+
+    // Another example method (e.g., update user info)
+    public function updateUserInfo(Request $request)
+    {
+        $user = $request->user();
+
+        if ($user) {
+            // Validate and update user data
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|unique:users,email,' . $user->id,
+            ]);
+
+            $user->update($request->only('name', 'email'));
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'User info updated successfully',
+                'user' => $user,
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'User not authenticated',
+            ], 401);
+        }
+    }
+
+
+    // Method to log out a user by invalidating their token
+    public function logout(Request $request)
+    {
+        // Get the current token of the authenticated user
+        $token = $request->user()->currentAccessToken();
+
+        // Revoke/Delete the token
+        $token->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Logged out successfully',
+        ], 200);
+    }
+
 }

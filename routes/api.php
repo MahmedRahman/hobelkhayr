@@ -25,8 +25,11 @@ Route::get('group/{id?}', [GroupChatController::class, 'index']);
 Route::get('groupbyuser/{id}', [GroupChatController::class, 'getGroupByuser']);
 
 Route::post('group', [GroupChatController::class, 'store']);
+Route::delete('/group/{id}', [GroupChatController::class, 'deleteGroup']);
 
 Route::get('groupUser', [GroupUserController::class, 'index']);
+Route::get('groupUserbyuserid/{id}', [GroupUserController::class, 'getGroupByUserId']);
+
 Route::post('groupUser', [GroupUserController::class, 'store']);
 Route::delete('groupUser', [GroupUserController::class, 'destroy']);
 
@@ -37,3 +40,10 @@ Route::get('usersbygroup/{groupId}', [GroupUserController::class, 'getUsersByGro
 Route::post('/add-group', [FirestoreController::class, 'addGroup']);
 
 Route::post('/send-fcm-notification', [FCMNotificationController::class, 'sendNotification']);
+
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user-info', [UserController::class, 'getUserInfoByToken']);
+    Route::post('/update-user-info', [UserController::class, 'updateUserInfo']);
+    Route::post('/logout', [UserController::class, 'logout']);
+});

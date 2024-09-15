@@ -27,5 +27,11 @@ class GroupUser extends Model
         return $this->belongsTo(User::class);
     }
 
+    // Method to retrieve the Service via GroupChat
+    public function service()
+    {
+        return $this->belongsTo(Service::class, 'type_id', 'id');
+    }
+
     // Additional methods specific to the pivot, like role-based checks, can be added here
 }

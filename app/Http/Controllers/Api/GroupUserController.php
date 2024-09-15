@@ -26,6 +26,34 @@ class GroupUserController extends Controller
         return new ApiResponse($response);
     }
 
+
+    public function getGroupByUserId($userId)
+    {
+
+        // Check if a user_id is provided, and apply the filter if so
+        $GroupUser = GroupUser::when($userId, function ($query, $userId) {
+            return $query->where('user_id', $userId);
+        })->get();
+
+        $response = $GroupUser->map(function ($GroupUser) {
+            return [
+
+
+                "name" => $GroupUser->group->name,
+                "description" => $GroupUser->group->description,
+                "type_id" => $GroupUser->group->type_id,
+                'service_image' => $GroupUser->group->service->service_image ?? 'No image available',
+
+                //"create_by" => $GroupUser->group->create_by,
+                "user_id" => $GroupUser->user_id,
+                //"group_id" => $GroupUser->group_id,
+
+
+            ];
+        });
+        return new ApiResponse($response);
+    }
+
     public function getUsersByGroupId($groupId)
     {
         // Validate that the group ID exists

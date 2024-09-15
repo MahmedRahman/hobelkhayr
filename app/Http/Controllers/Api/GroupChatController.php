@@ -72,6 +72,28 @@ class GroupChatController extends Controller
     }
 
 
+    public function deleteGroup($id)
+    {
+        // Find the group by its ID
+        $group = GroupChat::find($id);
+
+        if (!$group) {
+            // Return a response if the group is not found
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Group not found',
+            ], 404);
+        }
+
+        // Delete the group
+        $group->delete();
+
+        // Return a success response
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Group deleted successfully',
+        ], 200);
+    }
 
 
     public function store(Request $request)
