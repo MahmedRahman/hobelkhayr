@@ -37,18 +37,12 @@ class GroupUserController extends Controller
 
         $response = $GroupUser->map(function ($GroupUser) {
             return [
-
-
+                "group_id" => $GroupUser->group->id,
                 "name" => $GroupUser->group->name,
                 "description" => $GroupUser->group->description,
                 "type_id" => $GroupUser->group->type_id,
                 'service_image' => $GroupUser->group->service->service_image ?? 'No image available',
-
-                //"create_by" => $GroupUser->group->create_by,
                 "user_id" => $GroupUser->user_id,
-                //"group_id" => $GroupUser->group_id,
-
-
             ];
         });
         return new ApiResponse($response);
