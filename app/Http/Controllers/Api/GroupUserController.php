@@ -42,7 +42,7 @@ class GroupUserController extends Controller
                 "description" => $GroupUser->group->description,
                 "type_id" => $GroupUser->group->type_id,
                 'service_image' => $GroupUser->group->service->service_image ?? 'No image available',
-                "user_id" => $GroupUser->group->create_by,
+                "user_id" => $GroupUser->group,
 
             ];
         });
