@@ -14,5 +14,6 @@ class Notifaction extends Model
         'title',
         'body',
         'user_id',
+        'data',
     ];
 }

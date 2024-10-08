@@ -17,7 +17,15 @@ Route::get('/users', [UserController::class, 'index']);
 Route::post('/users/loginphone', [UserController::class, 'loginWithPhone']);
 
 Route::get('notifaction/{id?}', [NotifactionController::class, 'index']);
+Route::post('notifaction/', [NotifactionController::class, 'store']);
+
 Route::delete('notifaction/{id}', [NotifactionController::class, 'destroy']);
+// Route to delete all notifications for a specific user by user ID
+Route::delete('/notifications/user/{userId}', [NotifactionController::class, 'destroyAllByUserId']);
+
+// Route to send a notification to all users
+Route::post('/notifications/send-to-all', [NotifactionController::class, 'sendToAllUsers']);
+
 Route::get('service', [ServiceController::class, 'index']);
 
 

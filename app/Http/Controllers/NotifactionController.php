@@ -27,6 +27,8 @@ class NotifactionController extends Controller
             'title' => 'required|string|max:255',
             'body' => 'required|string|max:255',
             'user_id' => 'required|string|max:255',
+            'data' => 'required|string|max:255', // Add validation for the data field
+
         ]);
 
         try {
@@ -34,6 +36,8 @@ class NotifactionController extends Controller
                 'title' => $request->input('title'),
                 'body' => $request->input('body'),
                 'user_id' => $request->input('user_id'),
+                'data' => $request->input('data'), // Ensure you include the data field
+
             ]);
 
 
