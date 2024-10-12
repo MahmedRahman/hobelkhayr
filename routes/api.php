@@ -38,7 +38,7 @@ Route::delete('/group/{id}', [GroupChatController::class, 'deleteGroup']);
 Route::get('groupUser', [GroupUserController::class, 'index']);
 Route::get('groupUserbyuserid/{id}', [GroupUserController::class, 'getGroupByUserId']);
 
-Route::post('groupUser', [GroupUserController::class, 'store']);
+Route::post('groupUser', action: [GroupUserController::class, 'store']);
 Route::delete('groupUser', [GroupUserController::class, 'destroy']);
 
 
@@ -46,6 +46,9 @@ Route::get('usersbygroup/{groupId}', [GroupUserController::class, 'getUsersByGro
 
 
 Route::post('/add-group', [FirestoreController::class, 'addGroup']);
+Route::post('/createDocument', action: [FirestoreController::class, 'createDocument']);
+
+
 
 Route::post('/send-fcm-notification', [FCMNotificationController::class, 'sendNotification']);
 

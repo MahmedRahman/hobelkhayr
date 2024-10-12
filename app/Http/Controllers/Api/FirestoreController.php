@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use GuzzleHttp\Client;
 use Kreait\Firebase\Factory;
 use Illuminate\Http\Request;
+use Firebase\JWT\JWT;
+use GuzzleHttp\Exception\RequestException;
 
 class FirestoreController extends Controller
 {
@@ -64,4 +67,42 @@ class FirestoreController extends Controller
             ], 500);
         }
     }
+
+
+    function createDocument()
+    {
+        $client = new Client();
+
+        $url = "https://firestore.googleapis.com/v1/projects/chat-app-64bd1/databases/(default)/documents/chat_group?documentId=3";
+
+        $data = [
+            'fields' => [
+                'Name' => [
+                    'stringValue' => 'Freshpak Rooibos Tea 80Pk',
+                ],
+                'Description' => [
+                    'stringValue' => 'Enjoy a cup of Freshpak Rooibos your no 1 Rooibos tea.',
+                ],
+            ],
+        ];
+
+        try {
+            $response = $client->post($url, [
+                'json' => $data,
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                ],
+            ]);
+
+            return json_decode($response->getBody(), true);
+        } catch (RequestException $e) {
+            return ['error' => $e->getMessage(), 'response' => $e->getResponse()->getBody()->getContents()];
+        }
+    }
+
+
+
+
+
+
 }
