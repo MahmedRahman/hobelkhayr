@@ -32,5 +32,7 @@ class AppServiceProvider extends ServiceProvider
             \Log::info($query->sql, $query->bindings);
         });
 
+
+
     }
 }

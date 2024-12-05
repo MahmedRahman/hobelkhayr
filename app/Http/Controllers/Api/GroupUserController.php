@@ -33,7 +33,8 @@ class GroupUserController extends Controller
         // Check if a user_id is provided, and apply the filter if so
         $GroupUser = GroupUser::when($userId, function ($query, $userId) {
             return $query->where('user_id', $userId);
-        })->get();
+        })->orderBy('created_at', 'desc') // Sort by created_at in descending order
+        ->get();
 
         $response = $GroupUser->map(function ($GroupUser) {
             return [
@@ -43,7 +44,6 @@ class GroupUserController extends Controller
                 "type_id" => $GroupUser->group->type_id,
                 'service_image' => $GroupUser->group->service->service_image ?? 'No image available',
                 "user_id" => $GroupUser->group,
-
             ];
         });
         return new ApiResponse($response);
