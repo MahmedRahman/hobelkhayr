@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Exception;
 use Illuminate\Http\Request;
 use App\Models\Service;
+use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
 {
@@ -11,15 +12,8 @@ class ServiceController extends Controller
      */
     public function index(Request $request)
     {
-
-
         $services = Service::all();
-
-
-
         return view('admin.pages.service.index', ['services' => $services]);
-
-        // return response()->json($services);
     }
 
     /**
@@ -34,80 +28,83 @@ class ServiceController extends Controller
             'service_image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048', // Updated validation for image
         ]);
 
-
-
-
         try {
             // Handle the file upload
             if ($request->hasFile('service_image')) {
                 $image = $request->file('service_image');
-                $imagePath = $image->store('images', 'public'); // Store the image in the 'public/images' directory
-            } else {
-                $imagePath = null;
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('uploads/services'), $imageName);
+                $imagePath = 'uploads/services/' . $imageName;
             }
+
             Service::create([
-                'service_name' => $request->input('service_name'),
-                'service_image' => asset(env('APP_URL')) . '/public/storage/' . $imagePath,
+                'service_name' => $request->service_name,
+                'service_image' => $imagePath ?? null,
             ]);
+
             return redirect()->route('services.index')->with('success', 'Service added successfully!');
         } catch (Exception $e) {
-            return redirect()->back()->with('error', 'Failed to create service!');
+            return redirect()->back()->with('error', 'Failed to create service: ' . $e->getMessage())->withInput();
         }
     }
-
-
-
 
     /**
      * Update the specified service in storage.
      */
     public function update(Request $request, $id)
     {
-        $service = Service::findOrFail($id);
-
-        // Validate the request
         $request->validate([
             'service_name' => 'required|string|max:255',
-            'service_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'service_image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
 
-        // Handle the file upload if provided
-        if ($request->hasFile('service_image')) {
-            $imagePath = $request->file('service_image')->store('services', 'public');
-            $service->service_image = $imagePath;
+        try {
+            $service = Service::findOrFail($id);
+            
+            // Handle image upload if new image is provided
+            if ($request->hasFile('service_image')) {
+                // Delete old image if exists
+                if ($service->service_image && file_exists(public_path($service->service_image))) {
+                    unlink(public_path($service->service_image));
+                }
+
+                // Upload new image
+                $image = $request->file('service_image');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('uploads/services'), $imageName);
+                $service->service_image = 'uploads/services/' . $imageName;
+            }
+
+            // Update service name
+            $service->service_name = $request->service_name;
+            $service->save();
+
+            return redirect()->route('services.index')
+                ->with('success', 'Service updated successfully!');
+        } catch (Exception $e) {
+            return redirect()->back()
+                ->with('error', 'Failed to update service: ' . $e->getMessage())
+                ->withInput();
         }
-
-        // Update the service
-        $service->service_name = $request->input('service_name');
-        $service->save();
-
-        return response()->json(['message' => 'Service updated successfully!', 'service' => $service]);
     }
 
     /**
      * Remove the specified service from storage.
      */
-    public function destroy($id, Request $request)
+    public function destroy($id)
     {
         try {
             $service = Service::findOrFail($id);
+            
+            // Delete image if exists
+            if ($service->service_image && file_exists(public_path($service->service_image))) {
+                unlink(public_path($service->service_image));
+            }
+            
             $service->delete();
-
-            if ($request->wantsJson()) {
-                return response()->json(['message' => 'Service deleted successfully!']);
-            }
-
             return redirect()->back()->with('success', 'Service deleted successfully!');
-
         } catch (Exception $e) {
-            if ($request->wantsJson()) {
-                return response()->json(['message' => 'Service not found!'], 404);
-            }
-
-            return redirect()->back()->with('error', 'Service not found!');
+            return redirect()->back()->with('error', 'Failed to delete service: ' . $e->getMessage());
         }
     }
-
-
-
 }

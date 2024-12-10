@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ApiResponse;
 use App\Models\User;
-use Auth;
-use Hash;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -74,20 +74,20 @@ class UserController extends Controller
 
     public function otp(Request $request)
     {
+        // Validate the input
         $validator = Validator::make($request->all(), [
             'phone' => 'required|string',
         ]);
-
+    
         if ($validator->fails()) {
             return new ApiResponse(['error' => $validator->errors()->first(), 'code' => 422]);
-
-
         }
-
+    
+        // Find the user by phone
         $user = User::where('phone', $request->phone)->first();
-
+    
         if (!$user) {
-
+            // Create a new user if not found
             $user = User::create([
                 'name' => $request->input('phone'),
                 'email' => $request->input('phone') . "@gmail.com",
@@ -95,23 +95,23 @@ class UserController extends Controller
                 'password' => bcrypt("1234"),
                 'role' => $request->input('role', 'user') // Default to 'user' if not provided
             ]);
-
-
-
-            //return new ApiResponse(['error' => 'User not found', 'code' => 404]);
-
         }
-
+    
+        // Check the user's role
+        if ($user->role === 'admin') {
+            // Do not change the password for admin users
+            return new ApiResponse(['error' => 'OTP not generated for admin users', 'code' => 403]);
+        }
+    
         // Generate a 4-digit OTP
         $otp = mt_rand(1000, 9999);
-
+    
         // Update the user's password with the OTP
         $user->password = Hash::make($otp);
         $user->save();
-
-
-        return new ApiResponse($otp);
-
+    
+        // Return the generated OTP
+        return new ApiResponse(['otp' => $otp, 'message' => 'OTP generated successfully']);
     }
 
     public function loginWithPhone(Request $request)
@@ -119,22 +119,29 @@ class UserController extends Controller
         $credentials = $request->validate([
             'phone' => 'required|string',
             'password' => 'required|string',
+            'device_token' => 'nullable|string',
         ]);
 
         if (Auth::attempt(['phone' => $credentials['phone'], 'password' => $credentials['password']])) {
             $user = Auth::user();
-            // Assuming you are using Sanctum for API token management
+            
+            // Update device token if provided
+            if ($request->has('device_token')) {
+                $user = User::find($user->id);  // Explicitly fetch the user model
+                if ($user) {
+                    $user->device_token = $request->device_token;
+                    $user->save();
+                }
+            }
+            
+            // Generate token using Sanctum
             $token = $user->createToken('authToken')->plainTextToken;
-
 
             return new ApiResponse([
                 'message' => 'Login successful',
                 'token' => $token,
                 'user' => $user
             ]);
-
-
-
         }
         return new ApiResponse(['error' => 'Invalid credentials', 'code' => 401]);
     }

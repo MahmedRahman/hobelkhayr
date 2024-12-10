@@ -1,72 +1,196 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Auth;
 use Exception;
-use Illuminate\Http\Request;
+use App\Models\User;
 use App\Models\Notifaction;
+use App\Services\FCMService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class NotifactionController extends Controller
 {
-    //
+    protected $fcmService;
+
+    public function __construct(FCMService $fcmService)
+    {
+        $this->fcmService = $fcmService;
+    }
 
     public function index(Request $request)
     {
-        $Notifications = Notifaction::all();
-        $columns = [
-            ['name' => 'ID', 'field' => 'id'],
-            ['name' => 'Title', 'field' => 'title'],
-            ['name' => 'Body', 'field' => 'body'],
-        ];
-        return view('admin.pages.notifaction.index', compact('Notifications', 'columns'));
+        $notifications = Notifaction::latest()->get();
+        $users = User::where('role', 'user')->get();
+        
+        return view('admin.pages.notifaction.index', compact('notifications', 'users'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'body' => 'required|string|max:255',
-            'user_id' => 'required|string|max:255',
-            'data' => 'required|string|max:255', // Add validation for the data field
-
+            'body' => 'required|string',
+            'user_ids' => 'required_if:send_to_all,0|array',
+            'user_ids.*' => 'exists:users,id',
+            'send_to_all' => 'required|boolean',
+            'data' => 'nullable|json',
         ]);
 
         try {
-            Notifaction::create([
-                'title' => $request->input('title'),
-                'body' => $request->input('body'),
-                'user_id' => $request->input('user_id'),
-                'data' => $request->input('data'), // Ensure you include the data field
+            DB::beginTransaction();
 
+            $notification = Notifaction::create([
+                'title' => $request->title,
+                'body' => $request->body,
+                'user_ids' => $request->send_to_all ? null : $request->user_ids,
+                'send_to_all' => $request->send_to_all,
+                'data' => $request->data ?? '{}',
+                'status' => 'pending'
             ]);
 
+            // Get target users
+            if ($request->send_to_all) {
+                $users = User::whereNotNull('device_token')->get();
+            } else {
+                $users = User::whereIn('id', $request->user_ids)
+                            ->whereNotNull('device_token')
+                            ->get();
+            }
 
-            return redirect()->back()->with('success', 'Service added successfully!');
+            // Collect device tokens
+            $deviceTokens = $users->pluck('device_token')->filter()->values()->toArray();
+
+            if (!empty($deviceTokens)) {
+                // Send FCM notification to all devices
+                $success = $this->fcmService->sendToMultipleDevices(
+                    $deviceTokens,
+                    $request->title,
+                    $request->body,
+                    json_decode($request->data ?? '{}', true)
+                );
+
+                if ($success) {
+                    $notification->update([
+                        'status' => 'sent',
+                        'sent_at' => now()
+                    ]);
+                } else {
+                    $notification->update([
+                        'status' => 'failed',
+                        'sent_at' => now()
+                    ]);
+                    throw new Exception('Failed to send FCM notification');
+                }
+            } else {
+                $notification->update([
+                    'status' => 'failed',
+                    'sent_at' => now()
+                ]);
+                throw new Exception('No valid device tokens found');
+            }
+
+            DB::commit();
+            return redirect()->back()->with('success', 'Notification sent successfully!');
         } catch (Exception $e) {
-
-
-            return redirect()->back()->with('error', 'Notifaction not found!');
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Failed to send notification: ' . $e->getMessage());
         }
     }
 
-
-    public function destroy($id, Request $request)
+    public function destroy($id)
     {
         try {
-            $Notifaction = Notifaction::findOrFail($id);
-            $Notifaction->delete();
-
-
-
-            return redirect()->back()->with('success', 'Notifaction deleted successfully!');
-
+            $notification = Notifaction::findOrFail($id);
+            $notification->delete();
+            return response()->json([
+                'success' => true,
+                'message' => 'Notification deleted successfully!'
+            ]);
         } catch (Exception $e) {
-
-
-            return redirect()->back()->with('error', 'Notifaction not found!');
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to delete notification: ' . $e->getMessage()
+            ], 500);
         }
     }
 
+    public function sendToAllUsers(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'body' => 'required|string',
+            'data' => 'nullable|json',
+        ]);
 
+        try {
+            DB::beginTransaction();
 
+            $notification = Notifaction::create([
+                'title' => $request->title,
+                'body' => $request->body,
+                'send_to_all' => true,
+                'data' => $request->data ?? '{}',
+                'status' => 'pending'
+            ]);
+
+            // Get all users with device tokens
+            $users = User::whereNotNull('device_token')->get();
+            $deviceTokens = $users->pluck('device_token')->filter()->values()->toArray();
+
+            if (!empty($deviceTokens)) {
+                // Send FCM notification to all devices
+                $success = $this->fcmService->sendToMultipleDevices(
+                    $deviceTokens,
+                    $request->title,
+                    $request->body,
+                    json_decode($request->data ?? '{}', true)
+                );
+
+                if ($success) {
+                    $notification->update([
+                        'status' => 'sent',
+                        'sent_at' => now()
+                    ]);
+                } else {
+                    $notification->update([
+                        'status' => 'failed',
+                        'sent_at' => now()
+                    ]);
+                    throw new Exception('Failed to send FCM notification');
+                }
+            } else {
+                $notification->update([
+                    'status' => 'failed',
+                    'sent_at' => now()
+                ]);
+                throw new Exception('No valid device tokens found');
+            }
+
+            DB::commit();
+            return redirect()->back()->with('success', 'Notification sent to all users successfully!');
+        } catch (Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Failed to send notification: ' . $e->getMessage());
+        }
+    }
+
+    public function destroyAllByUserId($userId)
+    {
+        try {
+            $notifications = Notifaction::where(function($query) use ($userId) {
+                $query->where('user_ids', 'like', "%\"$userId\"%")
+                      ->orWhere('send_to_all', true);
+            })->get();
+
+            foreach ($notifications as $notification) {
+                $notification->delete();
+            }
+
+            return redirect()->back()->with('success', 'All notifications deleted successfully');
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', 'Failed to delete notifications: ' . $e->getMessage());
+        }
+    }
 }

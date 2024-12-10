@@ -6,6 +6,9 @@ use App\Http\Controllers\GroupChatController;
 use App\Http\Controllers\NotifactionController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Admin\ForceUpdateController;
+use App\Http\Controllers\GroupController;
+use App\Http\Controllers\Admin\SystemSettingController;
 
 
 
@@ -38,11 +41,34 @@ Route::middleware(['auth'])->group(function () {
         return view('admin.pages.index');
     })->name("dashboard");
 
-    //user
-    Route::get('/user', [UserController::class, 'index']);
-    Route::post('/user/create', [UserController::class, 'store']);
-    Route::delete('/user/destroy/{id}', [UserController::class, 'destroy']);
+    // Force Update Management
+    Route::get('/admin/force-updates', [ForceUpdateController::class, 'index'])->name('admin.force-updates.index');
 
+    // Group Management
+    Route::get('/admin/groups', [GroupController::class, 'index'])->name('groups.index');
+    Route::post('/admin/groups', [GroupController::class, 'store'])->name('groups.store');
+    Route::put('/admin/groups/update/{id}', [GroupController::class, 'update'])->name('groups.update');
+    Route::delete('/admin/groups/destroy/{id}', [GroupController::class, 'destroy'])->name('groups.destroy');
+
+    // Service Management
+    Route::get('/admin/services', [ServiceController::class, 'index'])->name('services.index');
+    Route::post('/admin/services', [ServiceController::class, 'store'])->name('services.store');
+    Route::post('/admin/services/update/{id}', [ServiceController::class, 'update'])->name('services.update');
+    Route::delete('/admin/services/destroy/{id}', [ServiceController::class, 'destroy'])->name('services.destroy');
+
+    // Notification Management
+    Route::get('/admin/notifications', [NotifactionController::class, 'index'])->name('admin.notifications.index');
+    Route::post('/admin/notifications', [NotifactionController::class, 'store'])->name('admin.notifications.store');
+    Route::delete('/admin/notifications/{id}', [NotifactionController::class, 'destroy'])->name('admin.notifications.destroy');
+    Route::post('/admin/notifications/send-to-all', [NotifactionController::class, 'sendToAllUsers'])->name('admin.notifications.sendToAll');
+    Route::delete('/admin/notifications/user/{userId}', [NotifactionController::class, 'destroyAllByUserId'])->name('admin.notifications.destroyAllByUser');
+
+    // User Management
+    Route::get('/user', [UserController::class, 'index'])->name('user.index');
+    Route::post('/user', [UserController::class, 'store'])->name('user.store');
+    Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update');
+    Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+    Route::post('/user/location', [UserController::class, 'updateLocation'])->name('user.location.update');
 
     //logout
     Route::post('/logout', [UserController::class, 'logout'])->name("logout");
@@ -63,9 +89,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/groups', [GroupChatController::class, 'index']);
     Route::delete('/groups/destroy/{id}', [GroupChatController::class, 'destroy']);
 
-
+    // System Settings Routes
+    Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
+        Route::get('/settings', [SystemSettingController::class, 'index'])->name('admin.settings.index');
+        Route::post('/settings', [SystemSettingController::class, 'update'])->name('admin.settings.update');
+    });
 
 });
+
+
 
 
 Route::get('/test-firebase', function () {

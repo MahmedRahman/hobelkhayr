@@ -12,11 +12,13 @@ return new class extends Migration {
     {
         Schema::create('notifactions', function (Blueprint $table) {
             $table->id();
-            $table->string('title'); // Name of the service
-            $table->string('body'); // Path or URL to the service image
-            $table->string('data'); // Path or URL to the service image
-            $table->string('user_id'); // Path or URL to the service image
-
+            $table->string('title');
+            $table->text('body');
+            $table->json('user_ids')->nullable(); // Array of user IDs for multiple users
+            $table->boolean('send_to_all')->default(false); // Flag for sending to all users
+            $table->json('data')->nullable(); // Additional data in JSON format
+            $table->enum('status', ['sent', 'pending', 'failed'])->default('pending');
+            $table->timestamp('sent_at')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('notifaction');
+        Schema::dropIfExists('notifactions');
     }
 };

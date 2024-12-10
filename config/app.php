@@ -30,6 +30,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Application Store URLs
+    |--------------------------------------------------------------------------
+    |
+    | These URLs are used for directing users to the appropriate app store
+    | when an update is available for the mobile application.
+    |
+    */
+
+    'android_store_url' => env('ANDROID_STORE_URL', 'https://play.google.com/store/apps/details?id=com.hobelkhayr.app'),
+    'ios_store_url' => env('IOS_STORE_URL', 'https://apps.apple.com/app/hobelkhayr/id123456789'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Debug Mode
     |--------------------------------------------------------------------------
     |

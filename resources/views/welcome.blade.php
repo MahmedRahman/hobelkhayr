@@ -1,479 +1,683 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <title>Appload a Mobile App Landing Category Flat Bootstarp Resposive Website Template | Home :: w3layouts</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="Appload Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
-    <script type="application/x-javascript">
-    addEventListener("load", function() {
-        setTimeout(hideURLbar, 0);
-    }, false);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HobelKhayr - Connect and Help Together</title>
+    <meta name="description" content="HobelKhayr connects people who want to help with those in need through group chats and community support.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #128C7E;
+            --primary-dark: #0C6B5F;
+            --primary-light: #25D366;
+            --secondary-color: #075E54;
+            --accent-color: #34B7F1;
+            --success-color: #25D366;
+            --light-bg: #E8F5E9;
+            --gradient-start: #128C7E;
+            --gradient-end: #34B7F1;
+            --text-dark: #075E54;
+            --text-light: #6B7280;
+        }
 
-    function hideURLbar() {
-        window.scrollTo(0, 1);
-    }
-    </script>
-    <link href="{{ URL::asset('web/css/style.css') }}" rel="stylesheet" type="text/css" media="all" />
-    <link href="{{ URL::asset('web/css/bootstrap.css') }}" rel="stylesheet" type="text/css" media="all">
-    <link href="{{ URL::asset('web/css/styles.css?v=1.6') }}" rel="stylesheet">
-    <!-- js -->
-    <script src="{{ URL::asset('web/js/jquery.min.js') }}"></script>
-    <script src="{{ URL::asset('web/js/scripts.js?v=1.7') }}"></script>
-    <!-- //js -->
-    <!-- start-smoth-scrolling -->
-    <script type="text/javascript" src="{{ URL::asset('web/js/move-top.js') }}"></script>
-    <script type="text/javascript" src="{{ URL::asset('web/js/easing.js') }}"></script>
-    <script type="text/javascript">
-    jQuery(document).ready(function($) {
-        $(".scroll").click(function(event) {
-            event.preventDefault();
-            $('html,body').animate({
-                scrollTop: $(this.hash).offset().top
-            }, 1000);
-        });
-    });
-    </script>
-    <!-- start-smoth-scrolling -->
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+
+        .navbar {
+            padding: 1rem 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(18, 140, 126, 0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+          
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, var(--primary-color), var(--primary-dark));
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(18, 140, 126, 0.2);
+        }
+
+        .hero {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, var(--light-bg) 0%, #F0FFF4 100%);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: var(--primary-dark);
+        }
+
+        .feature-card {
+            background: white;
+            box-shadow: 0 4px 6px -1px rgba(18, 140, 126, 0.1);
+            transition: transform 0.3s ease;
+            border: 1px solid var(--light-bg);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(18, 140, 126, 0.1);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--light-bg);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .stats-section {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 4rem 0;
+        }
+
+        .chat-preview {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+
+        .chat-message {
+            display: flex;
+            align-items: start;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+
+        .chat-message.received {
+            background: var(--light-bg);
+            margin-right: 2rem;
+        }
+
+        .chat-message.sent {
+            background: white;
+            margin-left: 2rem;
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin: 0 0.5rem;
+        }
+
+        .message-content {
+            background: white;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            max-width: 80%;
+        }
+
+        .contact-section {
+            padding: 6rem 0;
+            background: var(--light-bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            opacity: 0.1;
+            top: -150px;
+            right: -150px;
+        }
+
+        .contact-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(18, 140, 126, 0.05);
+        }
+
+        .contact-info {
+            margin-bottom: 2rem;
+        }
+
+        .contact-info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info-item i {
+            width: 40px;
+            height: 40px;
+            background: var(--light-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            color: var(--primary-color);
+        }
+
+        .form-control {
+            padding: 0.8rem;
+            border: 2px solid #E2E8F0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(18, 140, 126, 0.1);
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--light-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .app-download {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, var(--light-bg) 0%, #F0FFF4 100%);
+        }
+
+        .app-download h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary-dark);
+        }
+
+        .app-download p {
+            font-size: 1.1rem;
+            color: var(--secondary-color);
+            margin-bottom: 2rem;
+        }
+
+        .store-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .store-button {
+            background: var(--text-dark);
+            color: white;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .store-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(18, 140, 126, 0.2);
+            color: white;
+        }
+
+        .store-button i {
+            font-size: 2rem;
+            margin-right: 0.8rem;
+        }
+
+        .store-button .button-text {
+            text-align: left;
+        }
+
+        .store-button .small-text {
+            font-size: 0.8rem;
+            display: block;
+            opacity: 0.8;
+        }
+
+        .store-button .big-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: block;
+        }
+
+        footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 4rem 0;
+        }
+
+        footer a {
+            color: rgba(255, 255, 255, 0.8);
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--primary-light);
+        }
+
+        @media (max-width: 768px) {
+            .store-buttons {
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
-
-<body class="cbp-spmenu-push">
-    <!-- header -->
-    <div class="header-bg">
-        <section class="navigation">
-            <div class="container-fluid">
-                <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2">
-                    <nav class="pull">
-                        <ul class="nav">
-                            <li><a href="#home" class="scroll">Home</a></li>
-                            <li><a href="#about" class="scroll">About</a></li>
-                            <li><a href="#services" class="scroll">Services</a></li>
-                            <li><a href="#features" class="scroll">Features</a></li>
-                            <li><a href="#pricing" class="scroll">Pricing</a></li>
-                            <li><a href="#mail" class="scroll">Mail us</a></li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </section>
-        <div class="header-top">
-            <div class="container">
-                <div class="head-logo">
-                    <a href="index.html">Appload</a>
-                </div>
-                <div class="top-nav">
-                    <section class="hero fa-navicon fa-2x nav_slide_button" id="hero">
-                        <a href="#"><img src="{{ URL::asset('web/images/menu-icon.png') }}" alt=""></a>
-                    </section>
-                </div <div class="clearfix">
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">HobelKhayr</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#community">Community</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-primary" href="/login">Join Now</a>
+                    </li>
+                </ul>
             </div>
         </div>
-    </div>
-    <div class="banner-info">
-        <!-- container -->
-        <div class="container">
-            <div class="col-md-5 slid">
-                <!--- banner Slider starts Here --->
-                <script src="{{ URL::asset('web/js/responsiveslides.min.js') }}"></script>
-                <script>
-                // You can also use "$(window).load(function() {"
-                $(function() {
-                    // Slideshow 4
-                    $("#slider4").responsiveSlides({
-                        auto: true,
-                        pager: true,
-                        nav: true,
-                        speed: 500,
-                        namespace: "callbacks",
-                        before: function() {
-                            $('.events').append("<li>before event fired.</li>");
-                        },
-                        after: function() {
-                            $('.events').append("<li>after event fired.</li>");
-                        }
-                    });
+    </nav>
 
-                });
-                </script>
-                <!----//End-slider-script---->
-                <div id="top" class="callbacks_container">
-                    <ul class="rslides" id="slider4">
-                        <li>
-                            <div class="mobile-device">
-                                <img src="{{ URL::asset('web/images/mobile1.png') }}" alt="" />
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1>Connect, Chat & Help Together</h1>
+                    <p class="lead mb-4">Join HobelKhayr's community where you can create groups, chat with friends, and coordinate to help those in need.</p>
+                    <a href="/register" class="btn btn-primary me-3">Get Started</a>
+                    <a href="#learn-more" class="btn btn-outline-success">Learn More</a>
+                </div>
+                <div class="col-lg-6">
+                    <div class="chat-preview">
+                        <div class="chat-message received">
+                            <img src="{{ asset('images/avatar1.jpg') }}" alt="User" class="message-avatar">
+                            <div class="message-content">
+                                <p class="mb-0">Hey everyone! I know someone who needs help with medical expenses.</p>
                             </div>
-                        </li>
-                        <li>
-                            <div class="mobile-device">
-                                <img src="{{ URL::asset('web/images/mobile2.png') }}" alt="" />
+                        </div>
+                        <div class="chat-message sent">
+                            <img src="{{ asset('images/avatar2.jpg') }}" alt="User" class="message-avatar">
+                            <div class="message-content">
+                                <p class="mb-0">I can help! Let's create a group to coordinate.</p>
                             </div>
-                        </li>
+                        </div>
+                        <div class="chat-message received">
+                            <img src="{{ asset('images/avatar3.jpg') }}" alt="User" class="message-avatar">
+                            <div class="message-content">
+                                <p class="mb-0">Count me in! Together we can make a difference.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-4 fw-bold text-success">How It Works</h2>
+                <p class="lead text-muted">Connecting hearts through technology</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Create Groups</h3>
+                        <p>Form groups with friends and family to coordinate help and support.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3>Real-time Chat</h3>
+                        <p>Communicate instantly with group members to organize and plan.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <h3>Coordinate Help</h3>
+                        <p>Work together efficiently to provide support where it's needed most.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="stat-card">
+                        <div class="stat-number">5,000+</div>
+                        <div class="stat-label">Active Users</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-card">
+                        <div class="stat-number">1,000+</div>
+                        <div class="stat-label">Support Groups</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-card">
+                        <div class="stat-number">10,000+</div>
+                        <div class="stat-label">Lives Impacted</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section id="community" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-4 fw-bold text-success">Our Community</h2>
+                <p class="lead text-muted">Join thousands making a difference</p>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card">
+                        <img src="{{ asset('images/group1.jpg') }}" alt="Community Group" class="img-fluid rounded mb-3">
+                        <h4>Medical Support Group</h4>
+                        <p>Coordinating support for medical treatments and expenses.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card">
+                        <img src="{{ asset('images/group2.jpg') }}" alt="Community Group" class="img-fluid rounded mb-3">
+                        <h4>Education Initiative</h4>
+                        <p>Helping students access educational resources and support.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card">
+                        <img src="{{ asset('images/group3.jpg') }}" alt="Community Group" class="img-fluid rounded mb-3">
+                        <h4>Emergency Response</h4>
+                        <p>Quick response team for urgent community needs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center mb-5">
+                    <h2 class="display-4 fw-bold mb-3">Get in Touch</h2>
+                    <p class="text-muted">Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-5 mb-4 mb-lg-0">
+                    <div class="contact-info">
+                        <div class="contact-info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h5 class="mb-1">Address</h5>
+                                <p class="mb-0 text-muted">123 Community Street, City, Country</p>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h5 class="mb-1">Phone</h5>
+                                <p class="mb-0 text-muted">+1 234 567 8900</p>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h5 class="mb-1">Email</h5>
+                                <p class="mb-0 text-muted">contact@hobelkhayr.com</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="contact-card">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" placeholder="John Doe">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control" placeholder="john@example.com">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Subject</label>
+                                <input type="text" class="form-control" placeholder="How can we help?">
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label">Message</label>
+                                <textarea class="form-control" rows="5" placeholder="Your message here..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Download Section -->
+    <section class="app-download">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2>Download Our App</h2>
+                    <p>Get the HobelKhayr app on your phone to stay connected with your community and help others on the go.</p>
+                    <div class="store-buttons">
+                        <a href="#" class="store-button">
+                            <i class="fab fa-google-play"></i>
+                            <div class="button-text">
+                                <span class="small-text">GET IT ON</span>
+                                <span class="big-text">Google Play</span>
+                            </div>
+                        </a>
+                        <a href="#" class="store-button">
+                            <i class="fab fa-apple"></i>
+                            <div class="button-text">
+                                <span class="small-text">Download on the</span>
+                                <span class="big-text">App Store</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img src="images/app-preview.png" alt="HobelKhayr Mobile App" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h4 class="mb-4">HobelKhayr</h4>
+                    <p>Building stronger communities through connection and support.</p>
+                    <div class="social-links mt-4">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h5 class="mb-4">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">About Us</a></li>
+                        <li><a href="#" class="text-white">How It Works</a></li>
+                        <li><a href="#" class="text-white">FAQ</a></li>
+                        <li><a href="#" class="text-white">Contact</a></li>
                     </ul>
                 </div>
-            </div>
-            <div class="col-md-7 banner-info-left">
-                <h2>Appload is the <span>Easiest</span> way to keep track of your daily exercise & your healthy
-                    lifestyle</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam auctor Sed bibendum varius
-                    euismod. Integer eget turpis sit amet lorem rutrum ullamcorper sed sed dui. vestibulum odio at
-                    elementum. Suspendisse et condimentum nibh.</p>
-                <div class="banner-buttons">
-                    <div class="banner-button">
-                        <a href="#"><img src="{{ URL::asset('web/images/1.png') }}" alt="" /></a>
-                    </div>
-                    <div class="banner-button green-button">
-                        <a href="#"><img src="{{ URL::asset('web/images/2.png') }}" alt="" /></a>
-                    </div>
-                    <div class="clearfix"> </div>
+                <div class="col-md-2 mb-4">
+                    <h5 class="mb-4">Support</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">Help Center</a></li>
+                        <li><a href="#" class="text-white">Community Guidelines</a></li>
+                        <li><a href="#" class="text-white">Safety Tips</a></li>
+                    </ul>
                 </div>
-            </div>
-            <div class="clearfix"> </div>
-        </div>
-        <!-- //container -->
-    </div>
-    </div>
-    <!-- //header -->
-    <!-- banner-bottom -->
-    <div id="services" class="banner-bottom">
-        <!-- container -->
-        <div class="container">
-            <div class="banner-text">
-                <h3>Services</h3>
-                <p>Ut mollis rhoncus porttitor. Nulla facilisi. Nulla eget est fringilla, malesuada ligula non,
-                    scelerisque enim. Fusce dui ex, accumsan at viverra nec, suscipit eget tortor.</p>
-            </div>
-            <div class="banner-bottom-grids">
-                <div class="col-md-4 banner-bottom-grid">
-                    <div class="services-icon">
-                        <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
-                    </div>
-                    <h4>Aliquam nulla mauris</h4>
-                    <p>Lorem Ipsum is simply Ipsum has been the industry's text of the printing and typesetting
-                        industry. </p>
-                </div>
-                <div class="col-md-4 banner-bottom-grid red">
-                    <div class="services-icon">
-                        <span class="glyphicon glyphicon-th-large glyphicon-phone" aria-hidden="true"></span>
-                    </div>
-                    <h4>Mauris pellentesque</h4>
-                    <p>Lorem Ipsum is simply Ipsum has been the industry's text of the printing and typesetting
-                        industry. </p>
-                </div>
-                <div class="col-md-4 banner-bottom-grid green">
-                    <div class="services-icon">
-                        <span class="glyphicon glyphicon-th-large glyphicon-thumbs-up" aria-hidden="true"></span>
-                    </div>
-                    <h4>Praesent vitae quam</h4>
-                    <p>Lorem Ipsum is simply Ipsum has been the industry's text of the printing and typesetting
-                        industry. </p>
-                </div>
-                <div class="clearfix"> </div>
-            </div>
-        </div>
-        <!-- //container -->
-    </div>
-    <!-- //banner-bottom -->
-    <!-- about -->
-    <div id="about" class="about">
-        <!-- container -->
-        <div class="container">
-            <div class="about-info">
-                <h3>About Us</h3>
-                <p class="caption">Ut mollis rhoncus porttitor. Nulla facilisi. Nulla eget est fringilla, malesuada
-                    ligula non, scelerisque enim. Fusce dui ex, accumsan at viverra nec, suscipit eget tortor.</p>
-                <p class="a-text">Mauris pellentesque augue a vulputate rutrum. Praesent vitae quam nec ex commodo
-                    tincidunt. Vivamus tincidunt porta rutrum. Suspendisse potenti. Maecenas interdum, ligula
-                    condimentum varius vestibulum
-                    metus turpis dapibus leo, vitae vestibulum sapien ipsum et quam. Class aptent taciti sociosqu ad
-                    litora torquent per conubia nostra, per inceptos himenaeos. Maecenas non scelerisque arcu.
-                    Suspendisse commodo mi tempor
-                    purus accumsan consequat.
-                </p>
-            </div>
-        </div>
-        <!-- //container -->
-    </div>
-    <!-- //about -->
-    <!-- features -->
-    <div id="features" class="features">
-        <!-- container -->
-        <div class="container">
-            <div class="features-info">
-                <h3>Features</h3>
-                <p>Ut mollis rhoncus porttitor. Nulla facilisi. Nulla eget est fringilla, malesuada ligula non,
-                    scelerisque enim. Fusce dui ex, accumsan at viverra nec, suscipit eget tortor.</p>
-            </div>
-            <div class="features-grids">
-                <div class="col-md-7 features-right">
-                    <h4>Different types of features available here :
-                    </h4>
-                    <div class="features-right-grids">
-                        <div class="features-right-grid right-top">
-                            <div class="design-left"> </div>
-                            <div class="design-right">
-                                <h5>Quisque rutrum, purus</h5>
-                                <p>Mauris pellentesque augue a vulputate</p>
-                            </div>
-                            <div class="clearfix"> </div>
+                <div class="col-md-4 mb-4">
+                    <h5 class="mb-4">Join Our Community</h5>
+                    <p>Stay updated with new features and community stories.</p>
+                    <form class="mt-3">
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Enter your email">
+                            <button class="btn btn-primary" type="submit">Subscribe</button>
                         </div>
-                        <div class="features-right-grid right-middle-top">
-                            <div class="design-left easy"> </div>
-                            <div class="design-right">
-                                <h5>Sed mattis tristique</h5>
-                                <p>Mauris pellentesque augue a vulputate</p>
-                            </div>
-                            <div class="clearfix"> </div>
-                        </div>
-                        <div class="features-right-grid right-middle">
-                            <div class="design-left developer"> </div>
-                            <div class="design-right">
-                                <h5>Maecenas sodales</h5>
-                                <p>Mauris pellentesque augue a vulputate</p>
-                            </div>
-                            <div class="clearfix"> </div>
-                        </div>
-                        <div class="features-right-grid right-bottom">
-                            <div class="design-left fully"> </div>
-                            <div class="design-right">
-                                <h5>Fully Responsive</h5>
-                                <p>Duis bibendum diam non erat facilaisis tincidunt. </p>
-                            </div>
-                            <div class="clearfix"> </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-5 slid">
-                    <!--- banner Slider starts Here --->
-                    <script>
-                    // You can also use "$(window).load(function() {"
-                    $(function() {
-                        // Slideshow 4
-                        $("#slider3").responsiveSlides({
-                            auto: true,
-                            pager: true,
-                            nav: true,
-                            speed: 500,
-                            namespace: "callbacks",
-                            before: function() {
-                                $('.events').append("<li>before event fired.</li>");
-                            },
-                            after: function() {
-                                $('.events').append("<li>after event fired.</li>");
-                            }
-                        });
-
-                    });
-                    </script>
-                    <!----//End-slider-script---->
-                    <div id="top" class="callbacks_container">
-                        <ul class="rslides" id="slider3">
-                            <li>
-                                <div class="mobile-device features-device">
-                                    <img src="{{ URL::asset('web/images/mobile.png') }}" alt="" />
-                                </div>
-                            </li>
-                            <li>
-                                <div class="mobile-device green-device features-device">
-                                    <img src="{{ URL::asset('web/images/mobile3.png') }}" alt="" />
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="clearfix"> </div>
-            </div>
-        </div>
-        <!-- //container -->
-    </div>
-    <!-- //features -->
-    <!-- plans -->
-    <div id="pricing" class="plans">
-        <!-- container -->
-        <div class="container">
-            <h3>Pricing</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. </p>
-            <div class="plans-grids">
-                <div class="plans-grid">
-                    <div class="plan-text">
-                        <a href="#">$ <span>25</span></a>
-                        <p>/month</p>
-                    </div>
-                    <div class="plans-grid-bottom">
-                        <div class="plans-grid-head">
-                            <h4>Basic</h4>
-                            <span>Description goes here</span>
-                        </div>
-                        <p>Feature 1</p>
-                        <p>Feature 2</p>
-                        <p>Feature 3</p>
-                        <p>Feature 4</p>
-                        <div class="plan-button">
-                            <a class="signup play-icon popup-with-zoom-anim" href="#small-dialog2">Purchase</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="plans-grid">
-                    <div class="plan-text">
-                        <a href="#">$ <span>50</span></a>
-                        <p>/month</p>
-                    </div>
-                    <div class="plans-grid-bottom">
-                        <div class="plans-grid-head">
-                            <h4>Standard</h4>
-                            <span>Description goes here</span>
-                        </div>
-                        <p>Feature 1</p>
-                        <p>Feature 2</p>
-                        <p>Feature 3</p>
-                        <p>Feature 4</p>
-                        <div class="plan-button">
-                            <a class="signup play-icon popup-with-zoom-anim" href="#small-dialog2">Purchase</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="plans-grid">
-                    <div class="plan-text">
-                        <a href="#">$ <span>75</span></a>
-                        <p>/month</p>
-                    </div>
-                    <div class="plans-grid-bottom">
-                        <div class="plans-grid-head">
-                            <h4>Deluxe</h4>
-                            <span>Description goes here</span>
-                        </div>
-                        <p>Feature 1</p>
-                        <p>Feature 2</p>
-                        <p>Feature 3</p>
-                        <p>Feature 4</p>
-                        <div class="plan-button">
-                            <a class="signup play-icon popup-with-zoom-anim" href="#small-dialog2">Purchase</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="plans-grid">
-                    <div class="plan-text">
-                        <a href="#">$ <span>99</span></a>
-                        <p>/month</p>
-                    </div>
-                    <div class="plans-grid-bottom">
-                        <div class="plans-grid-head">
-                            <h4>Premium</h4>
-                            <span>Description goes here</span>
-                        </div>
-                        <p>Feature 1</p>
-                        <p>Feature 2</p>
-                        <p>Feature 3</p>
-                        <p>Feature 4</p>
-                        <div class="plan-button">
-                            <a class="signup play-icon popup-with-zoom-anim" href="#small-dialog2">Purchase</a>
-                            <!-- script-for-menu -->
-                            <script>
-                            $("span.menu").click(function() {
-                                $("ul.nav1").slideToggle(300, function() {
-                                    // Animation complete.
-                                });
-                            });
-                            </script>
-                            <!-- /script-for-menu -->
-                        </div>
-                    </div>
-                </div>
-                <div class="clearfix"> </div>
-            </div>
-        </div>
-        <!-- //container -->
-    </div>
-    <!-- //plans -->
-    <!-- mail -->
-    <div id="mail" class="mail">
-        <!-- container -->
-        <div class="container">
-            <div class="mail-info">
-                <h3>Mail Us</h3>
-                <p>Ut mollis rhoncus porttitor. Nulla facilisi. Nulla eget est fringilla, malesuada ligula non,
-                    scelerisque enim. Fusce dui ex, accumsan at viverra nec, suscipit eget tortor.</p>
-            </div>
-            <div class="mail-grids">
-                <div class="col-md-6 mail-grid-left">
-                    <h3>Address</h3>
-                    <h5>Cras porttitor imperdiet volutpat nulla malesuada lectus eros <span>ut convallis felis
-                            consectetur ut </span></h5>
-                    <h4>Headquarters</h4>
-                    <p>123 T. Globel Place.
-                        <span>CG 09-123</span>
-                        Mexico, B.A. 4567
-                    </p>
-                    <h4>Get In Touch</h4>
-                    <p>Telephone: +1 234 567 9871
-                        <span>FAX: +1 234 567 9871</span>
-                        E-mail: <a href="mailto:info@example.com">mail@example.com</a>
-                    </p>
-                </div>
-                <div class="col-md-6 contact-text">
-                    <form>
-                        <input type="text" placeholder="Name" required="">
-                        <input type="text" placeholder="Email" required="">
-                        <input type="text" placeholder="Subject" required="">
-                        <textarea placeholder="Message" required=""></textarea>
-                        <input type="submit" value="SEND">
                     </form>
                 </div>
-                <div class="clearfix"> </div>
+            </div>
+            <hr class="mt-4 mb-4">
+            <div class="text-center">
+                <p class="mb-0">&copy; {{ date('Y') }} HobelKhayr. All rights reserved.</p>
             </div>
         </div>
-        <!-- //container -->
-    </div>
-    <!-- //mail -->
-    <!-- footer -->
-    <div class="footer">
-        <!-- container -->
-        <div class="container">
-            <div class="footer-info">
-                <img src="{{ URL::asset('web/images/8.png') }}" alt="" />
-                <h3>Get Notified of any updates!</h3>
-                <p>Subscribe to our newsletter to be notified about new version release</p>
-                <form>
-                    <input type="text" value="Your email address" onfocus="this.value = '';"
-                        onblur="if (this.value == '') {this.value = 'Your email address';}">
-                    <input type="submit" value="Subscribe">
-                    <div class="clearfix"> </div>
-                </form>
-            </div>
-            <div class="copyright">
-                <p> © 2015 Appload. All rights reserved | Design by <a href="http://w3layouts.com/">W3layouts</a></p>
-            </div>
-        </div>
-        <!-- //container -->
-    </div>
-    <!-- //footer -->
-    <script type="text/javascript">
-    $(document).ready(function() {
-        /*
-        var defaults = {
-                containerID: 'toTop', // fading element id
-            containerHoverID: 'toTopHover', // fading element hover id
-            scrollSpeed: 1200,
-            easingType: 'linear' 
-            };
-        */
+    </footer>
 
-        $().UItoTop({
-            easingType: 'easeOutQuart'
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
         });
 
-    });
+        // Navbar background change on scroll
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                document.querySelector('.navbar').style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+                document.querySelector('.navbar').style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+            } else {
+                document.querySelector('.navbar').style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+                document.querySelector('.navbar').style.boxShadow = 'none';
+            }
+        });
     </script>
-    <a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
-    <!-- content-Get-in-touch -->
 </body>
-
 </html>
